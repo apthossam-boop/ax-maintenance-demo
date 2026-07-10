@@ -1,0 +1,136 @@
+/// <summary>
+/// Custom service لبوابة ورشة الصيانة
+/// جداول: MBS_WorkShopOrdersServices + MBS_WorkShopOrderOperations
+///
+/// قبل Compile: افتح Table browser وعدّل أسماء الحقول في هذا الكود
+/// لتطابق الحقول الحقيقية (WorkOrderId, EquipmentId, CustPhone, Cost, ...).
+/// </summary>
+class MBSMaintPortalService
+{
+    [AifCollectionTypeAttribute('return', Types::Class, classStr(MBSMaintOrderContract))]
+    public List searchByPhone(str _custPhone)
+    {
+        MBSMaintSearchRequestContract req = new MBSMaintSearchRequestContract();
+        req.parmMode("phone");
+        req.parmQuery(_custPhone);
+        req.parmCustPhone(_custPhone);
+        return this.searchOrders(req);
+    }
+
+    [AifCollectionTypeAttribute('return', Types::Class, classStr(MBSMaintOrderContract))]
+    public List searchOrders(MBSMaintSearchRequestContract _request)
+    {
+        List                          results = new List(Types::Class);
+        MBS_WorkShopOrdersServices    svc;
+        MBS_WorkShopOrderOperations   op;
+        MBSMaintOrderContract         contract;
+        str                           mode = strLwr(_request.parmMode());
+        str                           q = _request.parmQuery();
+        str                           phone = _request.parmCustPhone();
+
+        if (!phone && mode == "phone")
+        {
+            phone = q;
+        }
+
+        while select svc
+            where (mode == "phone" && svc.CustPhone == phone)
+               || (mode == "equipment" && (svc.EquipmentId == q || svc.EquipmentCode == q) && (!phone || svc.CustPhone == phone))
+               || (mode == "workorder" && svc.WorkOrderId == q && (!phone || svc.CustPhone == phone))
+        {
+            if (phone && svc.CustPhone != phone)
+            {
+                continue;
+            }
+
+            contract = this.buildContract(svc);
+            results.addEnd(contract);
+        }
+
+        return results;
+    }
+
+    public MBSMaintOrderContract getOrder(str _workOrderId, str _custPhone)
+    {
+        MBS_WorkShopOrdersServices svc;
+
+        select firstOnly svc
+            where svc.WorkOrderId == _workOrderId
+               && (!_custPhone || svc.CustPhone == _custPhone);
+
+        if (!svc.RecId)
+        {
+            return null;
+        }
+
+        return this.buildContract(svc);
+    }
+
+    public boolean validatePhone(str _custPhone)
+    {
+        MBS_WorkShopOrdersServices svc;
+
+        select firstOnly RecId from svc
+            where svc.CustPhone == _custPhone;
+
+        return svc.RecId != 0;
+    }
+
+    [AifCollectionTypeAttribute('return', Types::Class, classStr(MBSMaintOrderContract))]
+    public List listAllOrders(str _query, str _status)
+    {
+        List                       results = new List(Types::Class);
+        MBS_WorkShopOrdersServices svc;
+        MBSMaintOrderContract      contract;
+        str                        q = _query;
+        str                        st = _status;
+
+        while select svc
+        {
+            if (q &&
+                svc.WorkOrderId != q &&
+                svc.EquipmentId != q &&
+                svc.EquipmentCode != q &&
+                svc.CustPhone != q)
+            {
+                continue;
+            }
+
+            contract = this.buildContract(svc);
+
+            if (st && contract.parmStatus() != st && contract.parmStage() != st)
+            {
+                continue;
+            }
+
+            results.addEnd(contract);
+        }
+
+        return results;
+    }
+
+    private MBSMaintOrderContract buildContract(MBS_WorkShopOrdersServices _svc)
+    {
+        MBS_WorkShopOrderOperations op;
+        MBSMaintOrderContract       contract = new MBSMaintOrderContract();
+
+        contract.parmWorkOrderId(_svc.WorkOrderId);
+        contract.parmEquipmentId(_svc.EquipmentId);
+        contract.parmEquipmentCode(_svc.EquipmentCode);
+        contract.parmCustPhone(_svc.CustPhone);
+        contract.parmCost(_svc.Cost);
+
+        select firstOnly op
+            where op.WorkOrderId == _svc.WorkOrderId;
+
+        if (op.RecId)
+        {
+            contract.parmTechnicianName(op.TechnicianName);
+            contract.parmStatus(op.Status);
+            contract.parmStage(op.Status);
+        }
+
+        return contract;
+    }
+
+}

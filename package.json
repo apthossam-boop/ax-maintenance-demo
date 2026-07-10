@@ -1,0 +1,16 @@
+{
+  "name": "ax-maintenance-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Customer maintenance portal demo for AX 2012",
+  "main": "api/server.js",
+  "scripts": {
+    "start": "node api/server.js",
+    "dev": "node api/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mssql": "^12.7.0",
+    "soap": "^1.1.7"
+  }
+}

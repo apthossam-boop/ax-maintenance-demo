@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>بوابة متابعة الصيانة — AX 2012</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <section id="login-view" class="view">
+      <div class="panel login-panel">
+        <p class="brand">صيانة المعدات</p>
+        <h1>بوابة العملاء</h1>
+        <p class="subtitle">متابعة حالة المعدة وتكلفة الإصلاح</p>
+        <form id="login-form">
+          <label for="phone">رقم تليفون العميل</label>
+          <input id="phone" type="tel" value="01028525303" required autocomplete="tel" />
+          <button type="submit">دخول</button>
+        </form>
+        <p class="hint">مثال من قاعدة البيانات: <strong>01028525303</strong></p>
+        <p class="hint"><a class="link" href="/company.html">شاشة مستخدمي الشركة — كل المعدات</a></p>
+        <p id="mode-label" class="hint"></p>
+      </div>
+    </section>
+
+    <section id="main-view" class="view hidden">
+      <header class="topbar">
+        <div>
+          <p class="brand">صيانة المعدات</p>
+          <p id="welcome" class="welcome"></p>
+        </div>
+        <button type="button" id="logout-btn" class="ghost">خروج</button>
+      </header>
+
+      <div class="panel">
+        <h2>بحث عن أمر صيانة</h2>
+        <div class="search-tabs" role="tablist">
+          <button type="button" class="tab active" data-mode="equipment">كود المعدة</button>
+          <button type="button" class="tab" data-mode="workorder">رقم أمر الشغل</button>
+          <button type="button" class="tab" data-mode="phone">كل أوامري</button>
+        </div>
+        <form id="search-form" class="search-row">
+          <input id="search-input" type="text" placeholder="أدخل كود المعدة" required />
+          <button type="submit">بحث</button>
+        </form>
+        <p id="search-error" class="error hidden"></p>
+      </div>
+
+      <div class="panel">
+        <h2>النتائج</h2>
+        <div id="results" class="results empty-state">ابدأ بالبحث لعرض أوامر الصيانة.</div>
+      </div>
+    </section>
+
+    <section id="detail-view" class="view hidden">
+      <header class="topbar">
+        <button type="button" id="back-btn" class="ghost">← رجوع</button>
+        <button type="button" id="logout-btn-2" class="ghost">خروج</button>
+      </header>
+      <div class="panel" id="detail-content"></div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

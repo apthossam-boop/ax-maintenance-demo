@@ -1,0 +1,32 @@
+/// <summary>
+/// طلب بحث من بوابة العملاء
+/// mode: phone | equipment | workorder
+/// </summary>
+[DataContractAttribute]
+class MBSMaintSearchRequestContract
+{
+    str mode;
+    str query;
+    str custPhone;
+
+    [DataMemberAttribute("Mode")]
+    public str parmMode(str _mode = mode)
+    {
+        mode = _mode;
+        return mode;
+    }
+
+    [DataMemberAttribute("Query")]
+    public str parmQuery(str _query = query)
+    {
+        query = _query;
+        return query;
+    }
+
+    [DataMemberAttribute("CustPhone")]
+    public str parmCustPhone(str _custPhone = custPhone)
+    {
+        custPhone = _custPhone;
+        return custPhone;
+    }
+}

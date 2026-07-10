@@ -1,0 +1,71 @@
+/// <summary>
+/// Data contract: أمر صيانة للبوابة
+/// </summary>
+[DataContractAttribute]
+class MBSMaintOrderContract
+{
+    str workOrderId;
+    str equipmentId;
+    str equipmentCode;
+    str custPhone;
+    real cost;
+    str technicianName;
+    str status;
+    str stage;
+
+    [DataMemberAttribute("WorkOrderId")]
+    public str parmWorkOrderId(str _workOrderId = workOrderId)
+    {
+        workOrderId = _workOrderId;
+        return workOrderId;
+    }
+
+    [DataMemberAttribute("EquipmentId")]
+    public str parmEquipmentId(str _equipmentId = equipmentId)
+    {
+        equipmentId = _equipmentId;
+        return equipmentId;
+    }
+
+    [DataMemberAttribute("EquipmentCode")]
+    public str parmEquipmentCode(str _equipmentCode = equipmentCode)
+    {
+        equipmentCode = _equipmentCode;
+        return equipmentCode;
+    }
+
+    [DataMemberAttribute("CustPhone")]
+    public str parmCustPhone(str _custPhone = custPhone)
+    {
+        custPhone = _custPhone;
+        return custPhone;
+    }
+
+    [DataMemberAttribute("Cost")]
+    public real parmCost(real _cost = cost)
+    {
+        cost = _cost;
+        return cost;
+    }
+
+    [DataMemberAttribute("TechnicianName")]
+    public str parmTechnicianName(str _technicianName = technicianName)
+    {
+        technicianName = _technicianName;
+        return technicianName;
+    }
+
+    [DataMemberAttribute("Status")]
+    public str parmStatus(str _status = status)
+    {
+        status = _status;
+        return status;
+    }
+
+    [DataMemberAttribute("Stage")]
+    public str parmStage(str _stage = stage)
+    {
+        stage = _stage;
+        return stage;
+    }
+}
