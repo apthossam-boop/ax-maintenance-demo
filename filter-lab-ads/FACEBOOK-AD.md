@@ -102,6 +102,7 @@ Message / WhatsApp / Send Message
 - معاينة محلية: افتح `creatives/preview-reel.html` بجانب ملف الفيديو
 - الغلاف المقترح: `creatives/story-9x16.jpg`
 - مشاهد المصدر: `creatives/reel-scenes/`
+- صورة المكنسة الحقيقية: `creatives/source/bosch-bgs21whyg.jpg` (مستخدمة في أول مشهد بالريلز وفي `feed-1x1.jpg`)
 - ملاحظة: معاينة GitHub أحيانًا ما تشغّل الفيديو؛ نزّل الملف أو ارفعه مباشرة كـ Reel على فيسبوك.
 
 ### تقسيم المشاهد
@@ -122,10 +123,11 @@ Message / WhatsApp / Send Message
 
 | الملف | الاستخدام |
 |---|---|
-| `creatives/feed-1x1.jpg` | منشور Feed / Boost |
+| `creatives/feed-1x1.jpg` | منشور Feed / Boost (بصورة المكنسة الحقيقية) |
 | `creatives/story-9x16.jpg` | Story / غلاف Reel |
 | `creatives/filterlab-reel-15s.mp4` | ريلز / إعلان فيديو |
 | `creatives/reel-scenes/` | إطارات المشاهد المصدر |
+| `creatives/source/bosch-bgs21whyg.jpg` | صورة المكنسة الأصلية |
 
 ---
 
